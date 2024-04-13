@@ -12,11 +12,44 @@
 
 .card .front {
   transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  transition-delay: 0.5s;
   position: absolute;
 }
 
 .flipped .front {
-  transform: rotatey(0deg);
+  transform: rotateY(0deg);
+  transition-delay: 0.1s;
+}
+
+.card .back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.7s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+}
+
+@keyframes rotate-front {
+  from {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+@keyframes rotate-back {
+  from {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
 }
 
 /* .flipped {
