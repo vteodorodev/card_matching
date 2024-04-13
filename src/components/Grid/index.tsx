@@ -33,7 +33,20 @@ function Grid() {
   const [firstChoice, setFirstChoice] = useState<Card | null>(null);
   const [secondChoice, setSecondChoice] = useState<Card | null>(null);
 
+  const flipCard = (card: Card) => {
+    setBoardCards((prev) =>
+      prev.map((c) => {
+        if (c.index === card.index) {
+          return { ...c, flipped: !c.flipped };
+        } else {
+          return c;
+        }
+      })
+    );
+  };
+
   const onChooseCard = (card: Card) => {
+    flipCard(card);
     firstChoice ? setSecondChoice(card) : setFirstChoice(card);
   };
 
@@ -50,9 +63,11 @@ function Grid() {
   useEffect(() => {
     if (firstChoice && secondChoice) {
       if (firstChoice.type === secondChoice.type) {
-        console.log("match");
       } else {
-        console.log("mismatch");
+        setTimeout(() => {
+          flipCard(firstChoice);
+          flipCard(secondChoice);
+        }, 1000);
       }
       resetTurn();
     }
