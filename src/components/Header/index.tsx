@@ -1,8 +1,6 @@
 import React from "react";
 
-interface HeaderProps {
-  title: String;
-}
+import { HeaderProps } from "../../types";
 
 function Header({ title }: HeaderProps) {
   return <h1>{title}</h1>;

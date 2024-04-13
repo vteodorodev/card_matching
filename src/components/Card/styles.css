@@ -1,0 +1,45 @@
+.card {
+  position: relative;
+}
+
+.card > img {
+  max-height: 100px;
+  max-width: 100px;
+}
+
+/* .flipped {
+  transform: rotateY(90deg);
+} */
+
+/* .card-face {
+  position: absolute;
+  transform: rotateY(90deg);
+}
+
+.rotate-cover {
+  animation: rotate-cover-animation 0.5s 1 alternate ease-out forwards;
+}
+
+@keyframes rotate-cover-animation {
+  from {
+    transform: rotateY(0deg);
+  }
+
+  to {
+    transform: rotateY(90deg);
+  }
+}
+
+.rotate-front {
+  animation: rotate-front-animation 0.5s 1 alternate ease-out 0.5s forwards;
+}
+
+@keyframes rotate-front-animation {
+  from {
+    transform: rotateY(90deg);
+  }
+
+  to {
+    transform: rotateY(0deg);
+  }
+} */
