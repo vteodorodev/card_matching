@@ -1,4 +1,9 @@
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  row-gap: 1vh;
+  column-gap: 1vh;
+  padding: 0px 40px;
 }

@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <Header title={"Card Matching"} />
-      <button onClick={resetGame}>RESET</button>
+      <button onClick={resetGame}>New Game</button>
       <Grid incrementTurn={incrementTurn} ref={boardRef} />
       <span>{`Turns: ${turn}`}</span>
     </div>

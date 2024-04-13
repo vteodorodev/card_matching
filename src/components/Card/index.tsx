@@ -34,17 +34,10 @@ function Card({ card, onChooseCard }: CardProps) {
 
   return (
     <div className="card">
-      <img
-        className={`card back ${card.flipped ? "visible" : "not-visible"}`}
-        src={getCard(card.type)}
-        alt={`${card.type.toString()}`}
-      />
-      <img
-        className={`card front ${!card.flipped ? "visible" : "not-visible"}`}
-        src={CoverImage}
-        onClick={handleClick}
-        alt="card back cover"
-      />
+      <div className={`${card.flipped ? "flipped" : ""}`}>
+        <img className={"front"} src={getCard(card.type)} alt={`${card.type.toString()}`} />
+        <img className={"back"} src={CoverImage} onClick={handleClick} alt="card back cover" />
+      </div>
     </div>
   );
 }
