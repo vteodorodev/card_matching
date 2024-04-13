@@ -61,7 +61,6 @@ function Grid({ incrementTurn }: GridProps, ref: any) {
   const resetFlippedCards = useCallback((firstChoice: Card, secondChoice: Card) => {
     flipCard(firstChoice);
     flipCard(secondChoice);
-    setDisabled(false);
   }, []);
 
   const resetTurn = () => {
@@ -85,7 +84,12 @@ function Grid({ incrementTurn }: GridProps, ref: any) {
   useEffect(() => {
     if (firstChoice && secondChoice) {
       if (firstChoice.type !== secondChoice.type) {
-        setTimeout(() => resetFlippedCards(firstChoice, secondChoice), 500);
+        setTimeout(() => {
+          resetFlippedCards(firstChoice, secondChoice);
+          setDisabled(false);
+        }, 500);
+      } else {
+        setDisabled(false);
       }
       resetTurn();
       incrementTurn();
