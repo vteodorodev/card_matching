@@ -32,6 +32,7 @@ function Grid({ incrementTurn }: GridProps, ref: any) {
   const [boardCards, setBoardCards] = useState<Card[]>(cards);
   const [firstChoice, setFirstChoice] = useState<Card | null>(null);
   const [secondChoice, setSecondChoice] = useState<Card | null>(null);
+  const [disabled, setDisabled] = useState(false);
 
   const flipCard = (card: Card) => {
     setBoardCards((prev) =>
@@ -46,9 +47,22 @@ function Grid({ incrementTurn }: GridProps, ref: any) {
   };
 
   const onChooseCard = (card: Card) => {
-    flipCard(card);
-    firstChoice ? setSecondChoice(card) : setFirstChoice(card);
+    if (!disabled) {
+      flipCard(card);
+      if (firstChoice) {
+        setSecondChoice(card);
+        setDisabled(true);
+      } else {
+        setFirstChoice(card);
+      }
+    }
   };
+
+  const resetFlippedCards = useCallback((firstChoice: Card, secondChoice: Card) => {
+    flipCard(firstChoice);
+    flipCard(secondChoice);
+    setDisabled(false);
+  }, []);
 
   const resetTurn = () => {
     setFirstChoice(null);
@@ -70,22 +84,18 @@ function Grid({ incrementTurn }: GridProps, ref: any) {
 
   useEffect(() => {
     if (firstChoice && secondChoice) {
-      if (firstChoice.type === secondChoice.type) {
-      } else {
-        setTimeout(() => {
-          flipCard(firstChoice);
-          flipCard(secondChoice);
-        }, 500);
+      if (firstChoice.type !== secondChoice.type) {
+        setTimeout(() => resetFlippedCards(firstChoice, secondChoice), 500);
       }
       resetTurn();
       incrementTurn();
     }
-  }, [firstChoice, secondChoice, incrementTurn]);
+  }, [firstChoice, secondChoice, incrementTurn, resetFlippedCards]);
 
   return (
     <div className="grid">
-      {boardCards.map((card) => (
-        <CardComponent card={card} onChooseCard={onChooseCard} key={card.index} />
+      {boardCards.map((card, index) => (
+        <CardComponent card={card} onChooseCard={onChooseCard} key={index} />
       ))}
     </div>
   );
