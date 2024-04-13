@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import { Card, CardType } from "../../types";
+import React, { useCallback, useEffect, useImperativeHandle, useState } from "react";
+import { Card, CardType, GridProps, GridRef } from "../../types";
 import CardComponent from "../Card";
 
 import "./styles.css";
@@ -28,7 +28,7 @@ function shuffleCards(cards: Array<Card>) {
     });
 }
 
-function Grid() {
+function Grid({ incrementTurn }: GridProps, ref: any) {
   const [boardCards, setBoardCards] = useState<Card[]>(cards);
   const [firstChoice, setFirstChoice] = useState<Card | null>(null);
   const [secondChoice, setSecondChoice] = useState<Card | null>(null);
@@ -55,10 +55,18 @@ function Grid() {
     setSecondChoice(null);
   };
 
-  useEffect(() => {
+  const shuffleBoard = useCallback(() => {
     const shuffledCards = shuffleCards(cards);
     setBoardCards(shuffledCards);
   }, []);
+
+  useImperativeHandle(ref, () => {
+    return {
+      shuffle: shuffleBoard,
+    };
+  });
+
+  useEffect(shuffleBoard, [shuffleBoard]);
 
   useEffect(() => {
     if (firstChoice && secondChoice) {
@@ -67,11 +75,12 @@ function Grid() {
         setTimeout(() => {
           flipCard(firstChoice);
           flipCard(secondChoice);
-        }, 1000);
+        }, 500);
       }
       resetTurn();
+      incrementTurn();
     }
-  }, [firstChoice, secondChoice]);
+  }, [firstChoice, secondChoice, incrementTurn]);
 
   return (
     <div className="grid">
@@ -82,4 +91,4 @@ function Grid() {
   );
 }
 
-export default Grid;
+export default React.forwardRef<GridRef, GridProps>(Grid);

@@ -7,6 +7,14 @@ export enum CardType {
   Sword,
 }
 
+interface GridProps {
+  incrementTurn: () => void;
+}
+
+interface GridRef {
+  shuffle: () => void;
+}
+
 interface Card {
   type: CardType;
   flipped: Boolean;
@@ -23,4 +31,4 @@ interface HeaderProps {
   title: String;
 }
 
-export type { CardProps, HeaderProps, Card };
+export type { GridRef, GridProps, CardProps, HeaderProps, Card };
